@@ -1,5 +1,3 @@
-![supabase-auth-thumb](https://github.com/user-attachments/assets/cc917884-5af3-4dc6-be1f-95312073340e)
-
 # user-app-service
 
 Aplicación de ejemplo en **React + Vite** que implementa autenticación por email y contraseña con **Supabase Auth**, gestionando la sesión con la **Context API** de React y protegiendo rutas privadas con **React Router**.
