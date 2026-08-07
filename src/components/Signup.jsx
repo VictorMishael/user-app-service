@@ -1,6 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
+import { ACTION_BUTTON_BASE } from "../styles/buttonStyles";
+
+const FIELD_STYLES =
+  "mt-2 rounded-md border border-slate-300 bg-white p-3 text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100";
+
+const SUBMIT_STYLES = `${ACTION_BUTTON_BASE} w-full px-4 py-3 disabled:cursor-not-allowed disabled:opacity-60`;
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -30,7 +36,7 @@ const Signup = () => {
         // session yet, so redirecting would bounce back through PrivateRoute.
         setMessage("Check your email to confirm your account.");
       }
-    } catch (err) {
+    } catch {
       setError("An unexpected error occurred."); // Catch unexpected errors
     } finally {
       setLoading(false); // End loading state
@@ -38,39 +44,55 @@ const Signup = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSignUp} className="max-w-md m-auto pt-24">
-        <h2 className="font-bold pb-2">Sign up today!</h2>
-        <p>
-          Already have an account? <Link to="/">Sign in</Link>
+    <div className="px-4">
+      <form onSubmit={handleSignUp} className="m-auto max-w-md py-16">
+        <h2 className="pb-2 text-2xl font-bold">Sign up today!</h2>
+        <p className="text-slate-600 dark:text-slate-400">
+          Already have an account?{" "}
+          <Link
+            to="/signin"
+            className="font-medium text-indigo-600 hover:underline dark:text-indigo-400"
+          >
+            Sign in
+          </Link>
         </p>
         <div className="flex flex-col py-4">
-          {/* <label htmlFor="Email">Email</label> */}
+          <label htmlFor="email" className="sr-only">
+            Email
+          </label>
           <input
             onChange={(e) => setEmail(e.target.value)}
-            className="p-3 mt-2"
+            className={FIELD_STYLES}
             type="email"
             name="email"
             id="email"
+            autoComplete="email"
             placeholder="Email"
           />
         </div>
         <div className="flex flex-col py-4">
-          {/* <label htmlFor="Password">Password</label> */}
+          <label htmlFor="password" className="sr-only">
+            Password
+          </label>
           <input
             onChange={(e) => setPassword(e.target.value)}
-            className="p-3 mt-2"
+            className={FIELD_STYLES}
             type="password"
             name="password"
             id="password"
+            autoComplete="new-password"
             placeholder="Password"
           />
         </div>
-        <button type="submit" disabled={loading} className="w-full mt-4">
+        <button type="submit" disabled={loading} className={SUBMIT_STYLES}>
           Sign Up
         </button>
-        {error && <p className="text-red-600 text-center pt-4">{error}</p>}
-        {message && <p className="text-green-700 text-center pt-4">{message}</p>}
+        {error && <p className="pt-4 text-center text-red-600">{error}</p>}
+        {message && (
+          <p className="pt-4 text-center text-green-700 dark:text-green-400">
+            {message}
+          </p>
+        )}
       </form>
     </div>
   );

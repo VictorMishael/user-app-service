@@ -1,42 +1,25 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
+import { useSignOut } from "../hooks/useSignOut";
+import { ACTION_BUTTON_BASE } from "../styles/buttonStyles";
 
 const Dashboard = () => {
-  const { session, signOut } = UserAuth();
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
-
-  const handleSignOut = async (e) => {
-    e.preventDefault();
-    setError(null);
-
-    try {
-      const result = await signOut();
-
-      if (result.success) {
-        navigate("/");
-      } else {
-        setError(result.error);
-      }
-    } catch (err) {
-      setError("An unexpected error occurred."); // Catch unexpected errors
-    }
-  };
+  const { session } = UserAuth();
+  const { handleSignOut, error } = useSignOut();
 
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <h2>Welcome, {session?.user?.email}</h2>
-      <div>
-        <p
-          onClick={handleSignOut}
-          className="hover:cursor-pointer  border inline-block px-4 py-3 mt-4 "
-        >
-          Sign out
-        </p>
-      </div>
-      {error && <p className="text-red-600 pt-4">{error}</p>}
+    <div className="mx-auto max-w-3xl px-4 py-12">
+      <h1 className="text-3xl font-bold">Dashboard</h1>
+      <h2 className="mt-2 text-slate-600 dark:text-slate-400">
+        Welcome, {session?.user?.email}
+      </h2>
+      <button
+        type="button"
+        onClick={handleSignOut}
+        className={`${ACTION_BUTTON_BASE} mt-6 px-4 py-3`}
+      >
+        Sign out
+      </button>
+      {error && <p className="pt-4 text-red-600">{error}</p>}
     </div>
   );
 };

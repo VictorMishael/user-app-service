@@ -1,4 +1,11 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { supabase } from "../supabaseClient";
 
 const AuthContext = createContext();
@@ -7,7 +14,7 @@ export const AuthContextProvider = ({ children }) => {
   const [session, setSession] = useState(undefined);
 
   // Sign up
-  const signUpNewUser = async (email, password) => {
+  const signUpNewUser = useCallback(async (email, password) => {
     const { data, error } = await supabase.auth.signUp({
       email: email.toLowerCase(),
       password: password,
@@ -19,10 +26,10 @@ export const AuthContextProvider = ({ children }) => {
     }
 
     return { success: true, data };
-  };
+  }, []);
 
   // Sign in
-  const signInUser = async (email, password) => {
+  const signInUser = useCallback(async (email, password) => {
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email: email.toLowerCase(),
@@ -45,7 +52,18 @@ export const AuthContextProvider = ({ children }) => {
         error: "An unexpected error occurred. Please try again.",
       };
     }
-  };
+  }, []);
+
+  // Sign out
+  const signOut = useCallback(async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.error("Error signing out:", error.message);
+      return { success: false, error: error.message };
+    }
+
+    return { success: true };
+  }, []);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -61,24 +79,14 @@ export const AuthContextProvider = ({ children }) => {
     return () => subscription.unsubscribe();
   }, []);
 
-  // Sign out
-  async function signOut() {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.error("Error signing out:", error.message);
-      return { success: false, error: error.message };
-    }
-
-    return { success: true };
-  }
-
-  return (
-    <AuthContext.Provider
-      value={{ signUpNewUser, signInUser, session, signOut }}
-    >
-      {children}
-    </AuthContext.Provider>
+  // A fresh object literal here would re-render every consumer on each render
+  // of the provider, even when the session has not changed.
+  const value = useMemo(
+    () => ({ signUpNewUser, signInUser, session, signOut }),
+    [signUpNewUser, signInUser, session, signOut]
   );
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export const UserAuth = () => {

@@ -5,14 +5,14 @@ import "./index.css";
 import { router } from "./router.jsx";
 import { RouterProvider } from "react-router-dom";
 import { AuthContextProvider } from "./context/AuthContext.jsx";
+import { ThemeContextProvider } from "./context/ThemeContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <>
-      <h1 className="text-center text-3xl pt-4">User - App</h1>
+    <ThemeContextProvider>
       <AuthContextProvider>
         <RouterProvider router={router} />
       </AuthContextProvider>
-    </>
+    </ThemeContextProvider>
   </StrictMode>
 );
