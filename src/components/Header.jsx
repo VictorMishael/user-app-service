@@ -3,14 +3,13 @@ import { Link, useLocation } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
 import { useSignOut } from "../hooks/useSignOut";
-import { ACTION_BUTTON_BASE } from "../styles/buttonStyles";
 import ThemeToggle from "./ThemeToggle";
 
-const DESKTOP_ITEM_STYLES = `${ACTION_BUTTON_BASE} px-4 py-2 text-sm`;
+// Same object, same skin, different size modifier per viewport.
+const DESKTOP_ITEM_STYLES = "o-button o-button--sm s-action";
 
-const MOBILE_ITEM_STYLES = `${ACTION_BUTTON_BASE} flex w-full items-center justify-center gap-2 p-2 text-sm`;
-
-const MENU_BUTTON_STYLES = `${ACTION_BUTTON_BASE} p-2 lg:hidden`;
+const MOBILE_ITEM_STYLES =
+  "o-button o-button--icon o-button--block s-action text-sm";
 
 const MenuIcon = ({ isOpen }) => (
   <svg
@@ -106,13 +105,11 @@ const Header = () => {
           ];
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur transition-colors dark:border-slate-800 dark:bg-slate-900/90">
-      {/* Three equal-width columns keep the project name centred on the header
-          itself, not on the space left over by the side groups. */}
-      <div className="mx-auto grid max-w-6xl grid-cols-[1fr_auto_1fr] items-center gap-3 px-4 py-3">
+    <header className="o-bar s-surface-bar">
+      <div className="o-container o-container--bar o-bar-row">
         <Link
           to="/"
-          className="flex items-center gap-2 justify-self-start"
+          className="o-cluster o-cluster--tight justify-self-start"
           aria-label="Vic-Thor home"
         >
           <img
@@ -123,12 +120,12 @@ const Header = () => {
           <span className="text-lg font-bold tracking-tight">Vic-Thor</span>
         </Link>
 
-        <span className="justify-self-center truncate text-sm font-semibold tracking-wide text-slate-600 dark:text-slate-300 sm:text-base">
+        <span className="u-text-muted justify-self-center truncate text-sm font-semibold tracking-wide sm:text-base">
           User-App-Service
         </span>
 
-        <div className="flex items-center gap-3 justify-self-end">
-          <nav className="hidden items-center gap-3 lg:flex">
+        <div className="o-cluster justify-self-end">
+          <nav className="o-cluster hidden lg:flex">
             {navItems.map((item) => (
               <NavItem
                 key={item.key}
@@ -148,7 +145,7 @@ const Header = () => {
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMenuOpen}
             aria-controls="header-mobile-menu"
-            className={MENU_BUTTON_STYLES}
+            className="o-button o-button--icon s-action lg:hidden"
           >
             <MenuIcon isOpen={isMenuOpen} />
           </button>
@@ -158,7 +155,7 @@ const Header = () => {
       {isMenuOpen && (
         <nav
           id="header-mobile-menu"
-          className="flex flex-col gap-2 border-t border-slate-200 px-4 py-3 dark:border-slate-800 lg:hidden"
+          className="o-stack o-stack--tight s-divider-top px-4 py-3 lg:hidden"
         >
           {navItems.map((item) => (
             <NavItem
@@ -173,7 +170,7 @@ const Header = () => {
       )}
 
       {signOutError && (
-        <p className="border-t border-red-200 bg-red-50 px-4 py-2 text-center text-sm text-red-700 dark:border-red-900 dark:bg-red-950 dark:text-red-300">
+        <p className="s-alert-error px-4 py-2 text-center text-sm">
           {signOutError}
         </p>
       )}

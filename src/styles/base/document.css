@@ -1,7 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+/**
+ * Element-level defaults. The only place in the folder allowed to style bare
+ * tags — everything past this point is class-based.
+ */
 @layer base {
   :root {
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

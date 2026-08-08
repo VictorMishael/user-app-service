@@ -1,0 +1,35 @@
+/**
+ * Object: the shape of an action. Structure only — this class carries no
+ * colour, so the same object serves a router link, a submit button and an
+ * icon-only toggle, each paired with whichever `s-` skin the design calls for.
+ */
+@layer components {
+  .o-button {
+    /* `border` with no colour reserves the border box up front: a skin can
+       paint it in dark mode without the element changing size. */
+    @apply inline-flex items-center justify-center gap-2 border font-medium;
+  }
+
+  /* Size modifiers set padding — mutually exclusive, pick exactly one. */
+  .o-button--sm {
+    @apply px-4 py-2 text-sm;
+  }
+
+  .o-button--md {
+    @apply px-4 py-3;
+  }
+
+  .o-button--lg {
+    @apply px-6 py-3;
+  }
+
+  /* Square padding for a button whose whole content is a glyph. */
+  .o-button--icon {
+    @apply p-2;
+  }
+
+  /* Width modifier — composes with any size above. */
+  .o-button--block {
+    @apply w-full;
+  }
+}

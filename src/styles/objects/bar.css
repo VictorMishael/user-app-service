@@ -1,0 +1,14 @@
+/**
+ * Object: a bar pinned to the top of the viewport while the page scrolls.
+ */
+@layer components {
+  .o-bar {
+    @apply sticky top-0 z-50;
+  }
+
+  /* Three columns with equal side tracks keep the middle child centred on the
+     bar itself, not on the space left over by the two side groups. */
+  .o-bar-row {
+    @apply grid grid-cols-[1fr_auto_1fr] items-center gap-3 py-3;
+  }
+}

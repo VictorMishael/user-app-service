@@ -1,0 +1,13 @@
+/**
+ * Skin: inline text link. Only for links that read as links inside a
+ * paragraph — a link styled as an action uses `o-button` + `s-action`.
+ */
+@layer components {
+  .s-link {
+    @apply font-medium text-indigo-600 dark:text-indigo-400;
+  }
+
+  .s-link:hover {
+    @apply underline;
+  }
+}

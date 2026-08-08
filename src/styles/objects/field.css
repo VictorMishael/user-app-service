@@ -1,0 +1,8 @@
+/**
+ * Object: the shape of a form control. Pairs with the `s-field` skin.
+ */
+@layer components {
+  .o-field {
+    @apply w-full border p-3;
+  }
+}

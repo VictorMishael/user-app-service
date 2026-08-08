@@ -1,5 +1,4 @@
 import { useTheme } from "../context/ThemeContext";
-import { ACTION_BUTTON_BASE } from "../styles/buttonStyles";
 
 const SunIcon = () => (
   <svg
@@ -49,12 +48,10 @@ const ThemeToggle = ({ withLabel = false, className = "" }) => {
       onClick={toggleTheme}
       title={actionLabel}
       aria-label={actionLabel}
-      className={`${ACTION_BUTTON_BASE} flex items-center gap-2 p-2 text-sm ${className}`}
+      className={`o-button o-button--icon s-action text-sm ${className}`}
     >
       {isDark ? <SunIcon /> : <MoonIcon />}
-      {withLabel && (
-        <span>{isDark ? "Light mode" : "Dark mode"}</span>
-      )}
+      {withLabel && <span>{isDark ? "Light mode" : "Dark mode"}</span>}
     </button>
   );
 };

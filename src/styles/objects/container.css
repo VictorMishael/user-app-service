@@ -1,0 +1,24 @@
+/**
+ * Object: centred content well with the page gutter.
+ *
+ * The max width lives in a modifier rather than in the object so one gutter
+ * definition serves a narrow form, an article column and the full-width bar.
+ */
+@layer components {
+  .o-container {
+    @apply mx-auto w-full px-4;
+  }
+
+  /* Modifiers are mutually exclusive — pick exactly one. */
+  .o-container--form {
+    @apply max-w-md;
+  }
+
+  .o-container--page {
+    @apply max-w-3xl;
+  }
+
+  .o-container--bar {
+    @apply max-w-6xl;
+  }
+}

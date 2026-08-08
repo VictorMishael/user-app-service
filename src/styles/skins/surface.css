@@ -1,0 +1,19 @@
+/**
+ * Skins: the paint for backgrounds and the rules that divide them.
+ */
+@layer components {
+  /* Translucent page chrome that lets content blur through as it scrolls up. */
+  .s-surface-bar {
+    @apply border-b border-slate-200 bg-white/90 backdrop-blur transition-colors dark:border-slate-800 dark:bg-slate-900/90;
+  }
+
+  /* Hairline separating a panel from whatever sits above it. */
+  .s-divider-top {
+    @apply border-t border-slate-200 dark:border-slate-800;
+  }
+
+  /* Full-width failure notice attached under the bar it belongs to. */
+  .s-alert-error {
+    @apply border-t border-red-200 bg-red-50 text-red-700 dark:border-red-900 dark:bg-red-950 dark:text-red-300;
+  }
+}

@@ -1,0 +1,41 @@
+/**
+ * OOCSS entry point.
+ *
+ * The two rules the whole folder follows:
+ *
+ *   1. Structure is separate from skin. An `o-` object owns the box model
+ *      (display, size, padding, alignment) and never a colour. An `s-` skin
+ *      owns the paint (background, border colour, radius, shadow, transition)
+ *      and never a box model. A button is `o-button o-button--md s-action`.
+ *
+ *   2. Container is separate from content. No selector here depends on where
+ *      the element sits, so there is no `.header .o-button`. An object looks
+ *      the same in the header, in a form, or on the home page.
+ *
+ * Every rule below is a single class, so source order — not specificity —
+ * decides conflicts. Objects load before skins so a skin can repaint the
+ * border an object reserved. Utilities load last and beat both, which is also
+ * what lets a one-off Tailwind class in JSX override an object.
+ */
+
+@import "tailwindcss/base";
+@import "./base/document.css";
+
+@import "tailwindcss/components";
+
+/* Objects — structure only. */
+@import "./objects/container.css";
+@import "./objects/stack.css";
+@import "./objects/cluster.css";
+@import "./objects/bar.css";
+@import "./objects/button.css";
+@import "./objects/field.css";
+
+/* Skins — paint only. */
+@import "./skins/action.css";
+@import "./skins/field.css";
+@import "./skins/surface.css";
+@import "./skins/link.css";
+
+@import "tailwindcss/utilities";
+@import "./utilities/text.css";

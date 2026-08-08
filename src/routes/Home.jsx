@@ -1,20 +1,21 @@
 import { Link } from "react-router-dom";
-import { ACTION_BUTTON_BASE } from "../styles/buttonStyles";
 
-const CTA_STYLES = `${ACTION_BUTTON_BASE} w-full px-6 py-3 sm:w-auto`;
+// Full width while the calls to action stack, natural width once they sit
+// side by side.
+const CTA_STYLES = "o-button o-button--lg o-button--block s-action sm:w-auto";
 
 const Home = () => {
   return (
-    <main className="mx-auto max-w-3xl px-4 py-20 text-center sm:py-28">
+    <main className="o-container o-container--page py-20 text-center sm:py-28">
       <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
         User-App-Service
       </h1>
-      <p className="mx-auto mt-6 max-w-xl text-lg text-slate-600 dark:text-slate-400">
+      <p className="u-text-muted mx-auto mt-6 max-w-xl text-lg">
         Account and session management for the Vic-Thor platform. Create an
         account or sign in to reach your dashboard.
       </p>
 
-      <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+      <div className="o-cluster o-cluster--center mt-10 flex-col sm:flex-row">
         <Link to="/signup" className={CTA_STYLES}>
           Create an account
         </Link>
