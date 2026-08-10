@@ -1,0 +1,16 @@
+/**
+ * Skin: form control paint. Pairs with the `o-field` object.
+ */
+@layer components {
+  .s-field {
+    @apply rounded-md border-slate-300 bg-white text-slate-900 transition-colors dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100;
+  }
+
+  .s-field::placeholder {
+    @apply text-slate-400;
+  }
+
+  .s-field:focus {
+    @apply border-indigo-500 outline-none;
+  }
+}

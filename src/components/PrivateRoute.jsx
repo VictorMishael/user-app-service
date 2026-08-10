@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { UserAuth } from "../context/AuthContext";
 import { Navigate } from "react-router-dom";
+import { UserAuth } from "../context/AuthContext";
 
 const PrivateRoute = ({ children }) => {
   const { session } = UserAuth();
 
+  // undefined = the session is still being restored, null = signed out.
+  // Treating them alike would bounce authenticated users on a page refresh.
   if (session === undefined) {
-    return <div>Loading...</div>;
+    return <div className="p-8 text-center">Loading...</div>;
   }
 
-  return <div>{session ? <>{children}</> : <Navigate to="/signup" />}</div>;
+  return session ? children : <Navigate to="/signin" replace />;
 };
 
 export default PrivateRoute;

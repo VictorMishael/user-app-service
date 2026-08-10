@@ -1,0 +1,25 @@
+/**
+ * Skin: the app's primary action — black at rest, blue on hover.
+ *
+ * Paint only, no sizing: the call site picks an `o-button` size modifier. The
+ * border colour is what dark mode needs to separate the black fill from the
+ * near-black page; the border box itself already exists on `o-button`, so
+ * lighting it up here does not shift the layout.
+ */
+@layer components {
+  .s-action {
+    @apply rounded-md border-transparent bg-black text-white transition-colors dark:border-slate-700;
+  }
+
+  .s-action:hover {
+    @apply bg-blue-600;
+  }
+
+  .s-action:focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-blue-500;
+  }
+
+  .s-action:disabled {
+    @apply cursor-not-allowed opacity-60;
+  }
+}

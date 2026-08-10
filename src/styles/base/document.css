@@ -1,0 +1,20 @@
+/**
+ * Element-level defaults. The only place in the folder allowed to style bare
+ * tags — everything past this point is class-based.
+ */
+@layer base {
+  :root {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply min-h-screen bg-white text-slate-900 transition-colors duration-200 dark:bg-slate-900 dark:text-slate-100;
+  }
+}

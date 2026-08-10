@@ -1,0 +1,17 @@
+/**
+ * Utilities: single-purpose text colours that carry meaning, each already
+ * paired with its dark-mode counterpart so no call site repeats the variant.
+ */
+@layer utilities {
+  .u-text-muted {
+    @apply text-slate-600 dark:text-slate-400;
+  }
+
+  .u-text-error {
+    @apply text-red-600 dark:text-red-400;
+  }
+
+  .u-text-success {
+    @apply text-green-700 dark:text-green-400;
+  }
+}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
 
@@ -30,7 +30,7 @@ const Signup = () => {
         // session yet, so redirecting would bounce back through PrivateRoute.
         setMessage("Check your email to confirm your account.");
       }
-    } catch (err) {
+    } catch {
       setError("An unexpected error occurred."); // Catch unexpected errors
     } finally {
       setLoading(false); // End loading state
@@ -38,41 +38,57 @@ const Signup = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSignUp} className="max-w-md m-auto pt-24">
-        <h2 className="font-bold pb-2">Sign up today!</h2>
-        <p>
-          Already have an account? <Link to="/">Sign in</Link>
-        </p>
-        <div className="flex flex-col py-4">
-          {/* <label htmlFor="Email">Email</label> */}
-          <input
-            onChange={(e) => setEmail(e.target.value)}
-            className="p-3 mt-2"
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Email"
-          />
-        </div>
-        <div className="flex flex-col py-4">
-          {/* <label htmlFor="Password">Password</label> */}
-          <input
-            onChange={(e) => setPassword(e.target.value)}
-            className="p-3 mt-2"
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Password"
-          />
-        </div>
-        <button type="submit" disabled={loading} className="w-full mt-4">
-          Sign Up
-        </button>
-        {error && <p className="text-red-600 text-center pt-4">{error}</p>}
-        {message && <p className="text-green-700 text-center pt-4">{message}</p>}
-      </form>
-    </div>
+    <form
+      onSubmit={handleSignUp}
+      className="o-container o-container--form py-16"
+    >
+      <h2 className="pb-2 text-2xl font-bold">Sign up today!</h2>
+      <p className="u-text-muted">
+        Already have an account?{" "}
+        <Link to="/signin" className="s-link">
+          Sign in
+        </Link>
+      </p>
+      <div className="o-stack py-4">
+        <label htmlFor="email" className="sr-only">
+          Email
+        </label>
+        <input
+          onChange={(e) => setEmail(e.target.value)}
+          className="o-field s-field"
+          type="email"
+          name="email"
+          id="email"
+          autoComplete="email"
+          placeholder="Email"
+        />
+      </div>
+      <div className="o-stack py-4">
+        <label htmlFor="password" className="sr-only">
+          Password
+        </label>
+        <input
+          onChange={(e) => setPassword(e.target.value)}
+          className="o-field s-field"
+          type="password"
+          name="password"
+          id="password"
+          autoComplete="new-password"
+          placeholder="Password"
+        />
+      </div>
+      <button
+        type="submit"
+        disabled={loading}
+        className="o-button o-button--md o-button--block s-action"
+      >
+        Sign Up
+      </button>
+      {error && <p className="u-text-error pt-4 text-center">{error}</p>}
+      {message && (
+        <p className="u-text-success pt-4 text-center">{message}</p>
+      )}
+    </form>
   );
 };
 

@@ -1,0 +1,17 @@
+/**
+ * Object: horizontal group of related items on a shared baseline — nav
+ * entries, an icon next to its label, a row of calls to action.
+ */
+@layer components {
+  .o-cluster {
+    @apply flex items-center gap-3;
+  }
+
+  .o-cluster--tight {
+    @apply gap-2;
+  }
+
+  .o-cluster--center {
+    @apply justify-center;
+  }
+}

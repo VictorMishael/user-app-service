@@ -1,0 +1,13 @@
+/**
+ * Object: vertical flow with one spacing value, so children never carry their
+ * own margins and stay reorderable.
+ */
+@layer components {
+  .o-stack {
+    @apply flex flex-col gap-4;
+  }
+
+  .o-stack--tight {
+    @apply gap-2;
+  }
+}
