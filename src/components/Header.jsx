@@ -113,7 +113,9 @@ const Header = () => {
           aria-label="Vic-Thor home"
         >
           <img
-            src={isDark ? "/thor-hammer-white.svg" : "/thor-hammer.svg"}
+            src={`${import.meta.env.BASE_URL}${
+              isDark ? "thor-hammer-white.svg" : "thor-hammer.svg"
+            }`}
             alt=""
             className="h-8 w-8"
           />
