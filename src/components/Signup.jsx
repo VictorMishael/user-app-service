@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
 
 const Signup = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -18,8 +20,14 @@ const Signup = () => {
     setMessage(null);
     setLoading(true);
 
+    if (!firstName.trim() || !lastName.trim()) {
+      setError("Nombres y Apellidos son obligatorios.");
+      setLoading(false);
+      return;
+    }
+
     try {
-      const result = await signUpNewUser(email, password); // Call context function
+      const result = await signUpNewUser(email, password, firstName, lastName); // Call context function
 
       if (!result.success) {
         setError(result.error); // Show error message on failure
@@ -49,6 +57,36 @@ const Signup = () => {
           Sign in
         </Link>
       </p>
+      <div className="o-stack py-4">
+        <label htmlFor="firstName" className="sr-only">
+          Nombres
+        </label>
+        <input
+          onChange={(e) => setFirstName(e.target.value)}
+          className="o-field s-field"
+          type="text"
+          name="firstName"
+          id="firstName"
+          autoComplete="given-name"
+          placeholder="Nombres"
+          required
+        />
+      </div>
+      <div className="o-stack py-4">
+        <label htmlFor="lastName" className="sr-only">
+          Apellidos
+        </label>
+        <input
+          onChange={(e) => setLastName(e.target.value)}
+          className="o-field s-field"
+          type="text"
+          name="lastName"
+          id="lastName"
+          autoComplete="family-name"
+          placeholder="Apellidos"
+          required
+        />
+      </div>
       <div className="o-stack py-4">
         <label htmlFor="email" className="sr-only">
           Email

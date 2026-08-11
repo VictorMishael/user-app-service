@@ -91,6 +91,12 @@ Las tres acciones del contexto (`signUpNewUser`, `signInUser`, `signOut`) devuel
 
 Los componentes comprueban `result.success` y pintan `result.error` directamente, sin acceder a `.message`. Toda acción de autenticación nueva debe seguir el mismo contrato.
 
+### Perfil en el alta
+
+`signUpNewUser(email, password, firstName, lastName)` envía los dos nombres en `options.data` (`first_name` / `last_name`), de modo que llegan a `raw_user_meta_data`. En Supabase, el trigger `handle_new_user()` los copia a `public.tbl_users` al insertarse la fila en `auth.users`.
+
+El `coalesce` del trigger solo cae al fallback (`split_part(email, '@', 1)`) cuando el valor es NULL, no cuando es cadena vacía. Por eso el contexto recorta los valores y **omite** la clave si queda vacía; `Signup.jsx` además exige ambos campos antes de llamar.
+
 ## Tema claro / oscuro
 
 `tailwind.config.js` usa `darkMode: "class"`. `ThemeContext.jsx`:

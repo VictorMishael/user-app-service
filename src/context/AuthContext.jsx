@@ -14,19 +14,42 @@ export const AuthContextProvider = ({ children }) => {
   const [session, setSession] = useState(undefined);
 
   // Sign up
-  const signUpNewUser = useCallback(async (email, password) => {
-    const { data, error } = await supabase.auth.signUp({
-      email: email.toLowerCase(),
-      password: password,
-    });
+  /**
+   * @param {string} email
+   * @param {string} password
+   * @param {string} [firstName] Stored as `first_name` in the user metadata.
+   * @param {string} [lastName]  Stored as `last_name` in the user metadata.
+   *
+   * The `handle_new_user()` trigger copies both keys from
+   * `raw_user_meta_data` into `public.tbl_users`. Its fallback for a missing
+   * name only fires on NULL, so an empty field is omitted rather than sent as
+   * an empty string.
+   */
+  const signUpNewUser = useCallback(
+    async (email, password, firstName, lastName) => {
+      const metadata = {};
+      const first = firstName?.trim();
+      const last = lastName?.trim();
+      if (first) metadata.first_name = first;
+      if (last) metadata.last_name = last;
 
-    if (error) {
-      console.error("Error signing up: ", error.message);
-      return { success: false, error: error.message };
-    }
+      const { data, error } = await supabase.auth.signUp({
+        email: email.toLowerCase(),
+        password: password,
+        options: {
+          data: metadata,
+        },
+      });
 
-    return { success: true, data };
-  }, []);
+      if (error) {
+        console.error("Error signing up: ", error.message);
+        return { success: false, error: error.message };
+      }
+
+      return { success: true, data };
+    },
+    []
+  );
 
   // Sign in
   const signInUser = useCallback(async (email, password) => {
