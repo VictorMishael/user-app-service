@@ -93,6 +93,7 @@ export const fetchUserPermissions = async (userId) => {
   }
 
   try {
+    // Query the user's name, roles, and permissions in one go. The `eq` filters
     const { data, error } = await supabase
       .from("tbl_users")
       .select(
@@ -118,7 +119,9 @@ export const fetchUserPermissions = async (userId) => {
         )
       `
       )
-      .eq("id", userId);
+      .eq("id", userId)
+      .eq("tbl_user_rol.tbl_rol.status", "true")
+      .eq("tbl_user_rol.tbl_rol.tbl_rol_permisos.tbl_permisos.status", "true");
 
     if (error) {
       console.error("Error al obtener permisos:", error.message);
